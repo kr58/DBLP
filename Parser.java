@@ -12,7 +12,28 @@ public class Parser
 		try
 		{
 			XMLEventReader eventReader = XMLInputFactory.newInstance().createXMLEventReader(new FileReader("dblp.xml"));
-			
+			while(eventReader.hasNext())
+			{
+				XMLEvent event = eventReader.nextEvent();
+				switch(event.getEventType())
+				{
+					case XMLStreamConstants.START_ELEMENT:
+
+						String openTag = event.asStartElement().getName().getLocalPart();
+						if(set.add(openTag)) System.out.println(openTag); break;
+					/*	
+					case XMLStreamConstants.CHARACTERS:
+
+						Characters characters = event.asCharacters();
+						break;
+
+					case  XMLStreamConstants.END_ELEMENT:
+
+						EndElement endElement = event.asEndElement();
+						break;
+					*/
+				}
+			}
 		}
 		
 		catch(FileNotFoundException e){ System.out.println(e); }
